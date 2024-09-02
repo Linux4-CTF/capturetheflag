@@ -1,5 +1,10 @@
 local registered_exclusive = false
 function ctf_modebase.register_mode(name, def)
+	local enable_mode = minetest.settings:get_bool("enable_" .. name .. "_mode")
+	if not enable_mode then
+		return
+	end
+
 	if def.exclusive then
 		ctf_modebase.modes[name] = def
 		ctf_modebase.modelist = {name}

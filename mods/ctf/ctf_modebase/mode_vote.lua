@@ -113,6 +113,11 @@ function ctf_modebase.mode_vote.start_vote()
 		new_mode = ctf_modebase.modelist[mode_index + 1]
 	end
 
+	if new_mode == ctf_modebase.current_mode then
+		ctf_modebase.mode_vote.end_vote()
+		return
+	end
+
 	local mode_defined_rounds = ctf_modebase.modes[new_mode].rounds
 	if not mode_defined_rounds then
 		for _, player in pairs(minetest.get_connected_players()) do
@@ -189,8 +194,10 @@ function ctf_modebase.mode_vote.end_vote()
 		votes_result:sub(1, -2)
 	)
 
-	minetest.chat_send_all(votes_result)
-	ctf_modebase.announce(votes_result)
+	if #ctf_modebase.modelist > 1 then
+		minetest.chat_send_all(votes_result)
+		ctf_modebase.announce(votes_result)
+	end
 
 	ctf_modebase.current_mode_matches = average_vote
 	if average_vote <= 0 then
@@ -202,6 +209,11 @@ function ctf_modebase.mode_vote.end_vote()
 end
 
 minetest.register_on_joinplayer(function(player)
+	if votes and #ctf_modebase.modelist == 1 then
+		ctf_modebase.mode_vote.end_vote()
+		return
+	end
+
 	local pname = player:get_player_name()
 
 	if votes and not voted[pname] then

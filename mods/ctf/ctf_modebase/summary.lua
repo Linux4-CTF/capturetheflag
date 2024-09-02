@@ -53,11 +53,15 @@ function ctf_modebase.summary.get(prev)
 end
 
 ctf_api.register_on_new_match(function()
-	game_stat = string.format("%s mode: Round %d of %d",
-		HumanReadable(ctf_modebase.current_mode),
-		ctf_modebase.current_mode_matches_played + 1,
-		ctf_modebase.current_mode_matches
-	)
+	game_stat = string.format("%s mode", HumanReadable(ctf_modebase.current_mode))
+
+	if #ctf_modebase.modelist > 1 then
+		game_stat = string.format("%s: Round %d of %d",
+			game_stat,
+			ctf_modebase.current_mode_matches_played + 1,
+			ctf_modebase.current_mode_matches
+		)
+	end
 end)
 
 ctf_api.register_on_match_end(function()
