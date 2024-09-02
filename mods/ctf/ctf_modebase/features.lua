@@ -470,7 +470,21 @@ return {
 				end
 			end
 
-			minetest.delete_area(p1, p2)
+			local vm = VoxelManip(p1, p2)
+
+			minetest.handle_async(function(vm_async)
+				local data = vm_async:get_data()
+
+				for i, id in pairs(data) do
+					data[i] = minetest.CONTENT_AIR
+				end
+
+				vm_async:set_data(data)
+
+				return vm_async
+			end, function(vm_async)
+				vm_async:write_to_map(false)
+			end, vm)
 
 			delete_queue = {}
 		end
