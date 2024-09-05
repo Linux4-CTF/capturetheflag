@@ -280,7 +280,9 @@ function ctf_map.prepare_map_nodes(mapmeta, treasurefy_node_callback, team_chest
 	local param2_data = vm:get_param2_data()
 
 	prepare_nodes(pos1, pos2, data, team_chest_items, blacklisted_nodes)
-	place_treasure_chests(mapmeta, pos1, pos2, data, param2_data, treasurefy_node_callback)
+	if treasurefy_node_callback then
+		place_treasure_chests(mapmeta, pos1, pos2, data, param2_data, treasurefy_node_callback)
+	end
 
 	vm:set_data(data)
 	vm:set_param2_data(param2_data)
