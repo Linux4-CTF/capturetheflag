@@ -76,7 +76,7 @@ local function show_formspec(player)
 				offset, gift.itemname, field_name, amount)
 			elseif gift.image then
 				formspec = formspec .. string.format("image_button[%f,1.7;1,1;%s;%s;%s]",
-			 	offset, gift.image, field_name, amount)
+				offset, gift.image, field_name, amount)
 			end
 		else
 			formspec = formspec .. "box[" .. offset .. ",1.7;1,1;gray]"
@@ -87,9 +87,9 @@ local function show_formspec(player)
 end
 
 local function random_rgb_color()
-    local r = math.random(0, 255)
-    local g = math.random(0, 255)
-    local b = math.random(0, 255)
+	local r = math.random(0, 255)
+	local g = math.random(0, 255)
+	local b = math.random(0, 255)
 	return minetest.colorspec_to_colorstring({a=0, r=r, g=g, b=b})
 end
 

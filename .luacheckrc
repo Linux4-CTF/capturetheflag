@@ -9,7 +9,7 @@ globals = {
 	"ctf_healing", "ctf_kill_list", "ctf_map", "ctf_melee", "ctf_modebase",
 	"ctf_ranged", "ctf_rankings", "ctf_report", "ctf_teams", "ctf_player",
 
-	"dropondie", "grenades",
+	"dropondie", "grenades", "random_gifts",
 
 	"chatcmdbuilder", "crafting", "hpbar", "playertag", "random_messages",
 	"skybox", "throwable_snow", "worldedit", "filter",
