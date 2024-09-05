@@ -475,9 +475,16 @@ return {
 			delete_queue = {}
 		end
 
+		local treasurefy_func = nil
+		if next(map_treasures) then
+			treasurefy_func = function(inv)
+				ctf_map.treasure.treasurefy_node(inv, map_treasures)
+			end
+		end
+
 		ctf_map.prepare_map_nodes(
 			ctf_map.current_map,
-			function(inv) ctf_map.treasure.treasurefy_node(inv, map_treasures) end,
+			treasurefy_func,
 			ctf_modebase:get_current_mode().team_chest_items or {},
 			ctf_modebase:get_current_mode().blacklisted_nodes or {}
 		)
