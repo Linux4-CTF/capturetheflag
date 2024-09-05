@@ -3,8 +3,8 @@
 local last_heal_time = {}
 minetest.register_node("heal_block:heal", {
     description = "Healing Block",
-    drawtype = "nodebox", 
-    node_box = { 
+    drawtype = "nodebox",
+    node_box = {
         type = "fixed",
         fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5}
     },
@@ -23,7 +23,8 @@ minetest.register_node("heal_block:heal", {
         local pteam = ctf_teams.get(placer)
         if pteam then
             if not ctf_core.pos_inside(pointed_thing.under, ctf_teams.get_team_territory(pteam)) then
-                minetest.chat_send_player(placer:get_player_name(), "You can only place heal blocks in your own territory!")
+                minetest.chat_send_player(placer:get_player_name(),
+			"You can only place heal blocks in your own territory!")
                 return itemstack
             end
         end
@@ -45,6 +46,6 @@ minetest.register_node("heal_block:heal", {
                 end
             end
         end
-        return true 
+        return true
     end
 })
