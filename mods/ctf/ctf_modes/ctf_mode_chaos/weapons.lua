@@ -33,7 +33,7 @@ local function swap_weapon(itemstack)
 		weapon_idx_next = 1
 	end
 
-	local next_weapon_name = ""
+	local next_weapon_name
 	if type(weapon_list[weapon_idx_next]) == "function" then
 		next_weapon_name = weapon_list[weapon_idx_next](meta)
 	else
@@ -189,7 +189,7 @@ minetest.register_tool("ctf_mode_chaos:grenade_launcher", {
 	end
 })
 
-local function can_explode(pos, pname, radius)
+local function can_explode(pos, pname, rad)
 	if minetest.is_protected(pos, "") then
 		minetest.chat_send_player(pname, "You can't explode grenade on spawn!")
 		return false
@@ -201,7 +201,7 @@ local function can_explode(pos, pname, radius)
 		for flagteam, team in pairs(ctf_map.current_map.teams) do
 			if not ctf_modebase.flag_captured[flagteam] and team.flag_pos then
 				local distance_from_flag = vector.distance(pos, team.flag_pos)
-				if distance_from_flag <= radius then
+				if distance_from_flag <= rad then
 					minetest.chat_send_player(pname, "You can't explode grenade so close to a flag!")
 					return false
 				end
