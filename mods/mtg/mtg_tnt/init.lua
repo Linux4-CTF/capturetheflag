@@ -156,6 +156,7 @@ local function entity_physics(pos, radius, drops, puncher_name, damage_mod)
 	for _, obj in ipairs(objs) do
 		if obj:is_player() then
 			local obj_pos = obj:get_pos()
+			if obj_pos then
 			local dist = math.max(1, vector.distance(pos, obj_pos))
 			local damage = (4 / dist) * (radius + damage_mod)
 
@@ -185,6 +186,7 @@ local function entity_physics(pos, radius, drops, puncher_name, damage_mod)
 				local dir = vector.normalize(vector.subtract(obj_pos, pos))
 				local moveoff = vector.multiply(dir, dist * radius)
 				obj:add_velocity(moveoff)
+			end
 			end
 		end
 	end
@@ -591,7 +593,7 @@ function tnt.register_tnt(def)
 			groups = {dig_immediate = 2, mesecon = 2, tnt = 1, flammable = 5},
 			sounds = default.node_sound_wood_defaults(),
 			after_place_node = function(pos, placer)
-				if placer:is_player() then
+				if placer and placer:is_player() then
 					local meta = minetest.get_meta(pos)
 					meta:set_string("owner", placer:get_player_name())
 				end
